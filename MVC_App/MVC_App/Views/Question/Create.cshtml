@@ -1,0 +1,201 @@
+﻿@model MVC_App.Models.Administrator.ParentModel
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>QuestionModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Question, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Question, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Question, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none">
+            @Html.LabelFor(model => model.Question.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Date, new { htmlAttributes = new {@id = "date-real" , @class = "form-control" , style="display:none;"} })
+                @Html.ValidationMessageFor(model => model.Question.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class='input-group date datepickerinput'  id="datepickerinput1">
+                    <input id="date-input" type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+           
+        <div class="form-group answ" id="0" style="display:block;">
+            <label class = "control-label col-md-2"> Answer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnswersCollection[0].Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnswersCollection[0].Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group answ" id="1" style="display:block;">
+            <label class="control-label col-md-2"> Answer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnswersCollection[1].Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnswersCollection[1].Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group answ" id="2" style="display:none;">
+            <label class="control-label col-md-2"> Answer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnswersCollection[2].Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnswersCollection[2].Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group answ" id="3" style="display:none;">
+            <label class="control-label col-md-2"> Answer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnswersCollection[3].Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnswersCollection[3].Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group answ" id="4" style="display:none;">
+            <label class="control-label col-md-2"> Answer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnswersCollection[4].Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnswersCollection[4].Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <button class="btn btn-default" id="myBtn" type="button">Add answer</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" id="disable" disabled/>
+                <h10 style="color: #ff3333;">*Red fields are required</h10>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<style>
+
+    .input-group {
+        display: flex;
+    }
+
+    .input-group-addon {
+        margin-right: 5px;
+        padding-right: 25px;
+    }
+    
+</style>
+
+<script type="text/javascript">
+
+            $(function () {
+                $('#datepickerinput1').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            });
+</script>
+
+<script>
+    
+    var i = 2
+    var answ = $('.answ');
+document.getElementById("myBtn").addEventListener("click", function(){
+    answ.each(function(element) {
+       
+        if (parseInt(this.id) == i) {
+            $(this).css("display", "block");
+            $('#disable').attr("disabled", 'disabled')
+        }
+
+        
+    });
+    if (i >= 4)
+    {
+        $(this).css("display", "none");
+    }
+    i++;
+});
+
+
+
+let inputs = $('.form-control')
+
+inputs.each((idx, elem) => {
+    $(elem).on('input', checkInputs);
+    $(elem).on('blur', emptyInput);
+})
+
+
+function checkInputs() {
+    var enable = true
+    if ($(this).val() != '') $(this).css('box-shadow', 'none')
+    else $(this).css("box-shadow", "inset 0 1px 1px #FAEBD7, 0 0 8px #ff3333");
+    
+    console.log("a")
+    //.css("box-shadow", "inset 0 1px 1px #FAEBD7, 0 0 8px #ff3333")
+
+    inputs.each((idx, elem) => {
+        const hidden = ($($(elem).closest('.answ')[0]).css('display') == 'none' || $(elem).css('display') == 'none')
+        if ( !hidden && $(elem).val() == '') {
+            enable = false
+        }
+    })
+    if (enable) {
+        $('#disable').removeAttr('disabled')
+    }
+    enable = true
+}
+function emptyInput() {
+    if ($(this).val() == '') {
+        $(this).css("box-shadow", "inset 0 1px 1px #FAEBD7, 0 0 8px #ff3333");
+    }
+}
+
+
+
+
+
+
+
+setInterval(function () {
+    const date = $('#datepickerinput1').data('date')
+    date && $('#date-real').val(date)
+    
+}, 100);
+
+
+
+</script>

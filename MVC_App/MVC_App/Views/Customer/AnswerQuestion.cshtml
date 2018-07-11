@@ -1,0 +1,85 @@
+﻿@model MVC_App.Models.Administrator.ParentModel
+
+@{
+    ViewBag.Title = "AnswerQuestion";
+}
+
+<style>
+    #disable {
+        pointer-events: none;
+        cursor: default;
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
+<div>
+    @if (Model.AnswersCollection.Count != 0)
+    {
+        <h1>Answer a question, takes a minute :)</h1>
+    }
+</div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <h3>@Html.DisplayFor(model => model.Question.Question)</h3>
+                </div>
+            </div>
+
+            @{ Html.BeginForm("AnswerQuestion", "Customer", FormMethod.Post, new { @id = "myForm" }); }
+
+            @foreach (var answer in Model.AnswersCollection)
+            {
+                <div>
+                    @Html.RadioButtonFor(x => x.AnswersCollection, @answer.Text ,  new { @class = "radio1"})
+                    <font size="4"> @answer.Text </font>
+                </div>
+            }
+
+        @if (Model.AnswersCollection.Count != 0)
+            {
+            <div>
+                @Html.RadioButtonFor(x => x.AnswersCollection, "otherOption", new { id = "other_option",@class = "radio1", onclick = "click()" }) 
+                <font size="4"> Other </font>
+            </div>
+
+            <br />
+
+            
+                <div>
+                    @Html.TextBox("text", null, new { @placeholder = "Type Your Answer...", @id = "textbox", style = "display:none;" })
+                </div>
+
+                <br />
+
+                <button>
+                    <div>
+                        @Html.ActionLink("Answer Personal Info", "AnswerCharacteristics", new { id = "disable" })
+                    </div>
+                </button>
+        }
+
+            @{ Html.EndForm(); }
+
+        </div>
+
+    <script>
+        console.log()
+        $('#myForm').change(function (event) {
+           $('#disable').removeAttr('disable')
+        })
+    </script>
+
+    <script>
+        $('#myForm').change(function (event) {
+            if (event.target.value == "otherOption") {
+                document.getElementById("textbox").style.display = "block"
+            } else {
+                document.getElementById("textbox").style.display = "none"
+            }
+        })
+
+        var answer_givenBy_user = $('input[type=radio]:checked').val();
+
+    </script>
+   

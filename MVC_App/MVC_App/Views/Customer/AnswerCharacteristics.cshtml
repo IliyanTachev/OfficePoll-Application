@@ -1,0 +1,83 @@
+﻿@model MVC_App.Models.Administrator.ParentModel
+
+@{
+    ViewBag.Title = "AnswerCharacteristics";
+}
+
+@{
+    string[] imgs = {
+    "https://tsbbankwallaceartscentre.org.nz/wp-content/uploads/2011/01/65fa961e-8f22-4fe6-a420-3c3c26dd2953.jpg._CB289161999__SL300__.jpg",
+    "http://www.earnthenecklace.com/wp-content/uploads/2016/06/Jon-Snow-HBO-300x300.jpg",
+    "http://worldartsme.com/images/garfield-the-cat-clipart-1.jpg",
+    "https://media.gunaxin.com/wp-content/uploads/2017/02/Batman-300x300.jpg",
+    "https://www.pinknews.co.uk/images/2014/09/Dumbledore2.jpg"
+    };
+
+}
+
+<div>
+    <h1>Answer your personal info.</h1>
+</div>
+
+@foreach (var type in Model.CharacteristicsToAnswersCollection)
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+               <h3>@Html.DisplayFor(model => type._text)</h3>
+            </div>
+        </div>
+
+        @{ Html.BeginForm("AnswerCharacteristics", "Customer", FormMethod.Post, new { @id = "myForm" }); }
+
+        @{ 
+            int i = 0;
+
+            foreach (var answer in type.answers_to_characteristic)
+            {
+            <div>
+                @Html.RadioButtonFor(x => x.CharacteristicsToAnswersCollection, answer.Text)
+               <font size="4"> @answer.Text </font>
+            </div>
+
+            <img src="@Url.Content(imgs[i] )" width="150" height="150" /><br><br><br><br>
+
+                i++;
+            }
+        }
+
+            @{ Html.EndForm(); }
+
+       @* <div>
+            @Html.RadioButtonFor(x => x.CharacteristicsToAnswersCollection, "otherOption", new { id = "other_option", onclick = "click()" }) Other
+        </div>
+
+        <div>
+            @Html.TextBox("text", null, new { @placeholder = "Type Your Answer...", @class = "textbox", style = "display:none;" })
+        </div> *@
+
+    </div>
+    <br>
+
+  
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="AnswerCharacteristics" class="btn btn-default" id="disable" />
+        </div>
+    </div>
+
+
+}
+
+    @* <script>
+        $('#myForm').change(function (event) {
+            if (event.target.value == "otherOption") {
+                document.getElementsByClassName("textbox")[0].style.display = "block"
+            } else {
+                document.getElementsByClassName("textbox")[0].style.display = "none"
+            }
+        })
+
+    </script>
+    *@
+   

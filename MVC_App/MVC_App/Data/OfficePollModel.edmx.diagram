@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="98687298f3b144ac9c37e1538b28745f" Name="Diagram1">
+        <EntityTypeShape EntityType="OfficePoll2Model.Answering_the_Question" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficePoll2Model.Answers_to_the_Characteristics" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficePoll2Model.Answers_to_the_Questions" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficePoll2Model.Characteristics" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficePoll2Model.Questions" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficePoll2Model.sysdiagrams" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answering_the_Question_Answers_to_the_Characteristics" ManuallyRouted="false" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answering_the_Question_Answers_to_the_Questions" ManuallyRouted="false" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answering_the_Question_Characteristics" ManuallyRouted="false" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answering_the_Question_Questions" ManuallyRouted="false" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answers_to_the_Characteristics_Characteristics" ManuallyRouted="false" />
+        <AssociationConnector Association="OfficePoll2Model.FK_Answers_to_the_Questions_Questions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

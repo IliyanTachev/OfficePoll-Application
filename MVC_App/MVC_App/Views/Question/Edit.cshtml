@@ -1,0 +1,101 @@
+﻿@model MVC_App.Models.Administrator.ParentModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>QuestionModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Question, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Question, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Question, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none">
+            @Html.LabelFor(model => model.Question.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question.Date, new { htmlAttributes = new { @id = "date-real", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class='input-group date datepickerinput' id="datepickerinput1">
+                    <input id="date-input" type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        @foreach (var item in Model.AnswersCollection)
+        {
+
+            <div class="form-group answ" id="2" style="display:block;">
+                <label class="control-label col-md-2"> Answer</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => item.Text, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => item.Text, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Su" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<style>
+    .input-group {
+        display: flex;
+    }
+
+    .input-group-addon {
+        margin-right: 5px;
+        padding-right: 25px;
+    }
+</style>
+
+<script type="text/javascript">
+
+            $(function () {
+                $('#datepickerinput1').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            });
+            $('#date-input').val(moment($('#date-real').val().split(' ')[0]).format('YYYY-MM-DD'))
+</script>
+
+<script type="text/javascript">
+
+            $(function () {
+                $('#datepickerinput1').datetimepicker({
+                    format: 'YYYY-MM-DD'
+                });
+            });
+</script>
+

@@ -1,0 +1,67 @@
+﻿@model MVC_App.Models.Administrator.ParentModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<h2>Details</h2>
+
+<div>
+    <h4>QuestionModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.Date)
+        </dd>
+
+        @foreach (var item in Model.AnswersCollection)
+        {
+
+                <dt>
+                    Answer
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </dd>
+
+        }
+    </dl>
+
+</div>
+
+<div>
+    <img src="@Url.Action("CreateChart")" alt="SimpleCart" height="70%" width= "50%"/>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Question.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<div>
+    @Html.ActionLink("Export", "ExportContentToCSV")
+
+ @* @{ new Chart(width: 800, height: 700, themePath: "theme.xml")
+      .AddTitle("Do you like the coffee?")
+      .AddSeries(
+      name: "yes",
+      xValue: new[] { "man", "woman", "other", "1-5", ">5" },
+      yValues: new[] { "2", "6", "4", "5", "3" })
+      .AddLegend()
+      .AddSeries(
+      name: "no",
+      xValue: new[] { "Peter", "Andrew", "Julie", "Mary", "Dave" },
+      yValues: new[] { "2", "6", "4", "5", "3" })
+      .AddLegend()
+      .Write();
+   }*@
+</div>

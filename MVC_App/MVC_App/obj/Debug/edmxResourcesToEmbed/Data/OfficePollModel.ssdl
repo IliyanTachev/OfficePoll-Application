@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OfficePoll2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Answering_the_Question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="question_id" Type="int" Nullable="false" />
+    <Property Name="question_answer_id" Type="int" Nullable="false" />
+    <Property Name="characteristic_id" Type="int" Nullable="false" />
+    <Property Name="characteristic_answer_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers_to_the_Characteristics">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="characteristic_id" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Answers_to_the_Questions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="question_id" Type="int" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="type" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Characteristics">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="text" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Answering_the_Question_Answers_to_the_Characteristics">
+    <End Role="Answers_to_the_Characteristics" Type="Self.Answers_to_the_Characteristics" Multiplicity="1" />
+    <End Role="Answering_the_Question" Type="Self.Answering_the_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Answers_to_the_Characteristics">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answering_the_Question">
+        <PropertyRef Name="characteristic_answer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answering_the_Question_Answers_to_the_Questions">
+    <End Role="Answers_to_the_Questions" Type="Self.Answers_to_the_Questions" Multiplicity="1" />
+    <End Role="Answering_the_Question" Type="Self.Answering_the_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Answers_to_the_Questions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answering_the_Question">
+        <PropertyRef Name="question_answer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answering_the_Question_Characteristics">
+    <End Role="Characteristics" Type="Self.Characteristics" Multiplicity="1" />
+    <End Role="Answering_the_Question" Type="Self.Answering_the_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characteristics">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answering_the_Question">
+        <PropertyRef Name="characteristic_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answering_the_Question_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+    <End Role="Answering_the_Question" Type="Self.Answering_the_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answering_the_Question">
+        <PropertyRef Name="question_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answers_to_the_Characteristics_Characteristics">
+    <End Role="Characteristics" Type="Self.Characteristics" Multiplicity="1" />
+    <End Role="Answers_to_the_Characteristics" Type="Self.Answers_to_the_Characteristics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Characteristics">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answers_to_the_Characteristics">
+        <PropertyRef Name="characteristic_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Answers_to_the_Questions_Questions">
+    <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+    <End Role="Answers_to_the_Questions" Type="Self.Answers_to_the_Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Answers_to_the_Questions">
+        <PropertyRef Name="question_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OfficePoll2ModelStoreContainer">
+    <EntitySet Name="Answering_the_Question" EntityType="Self.Answering_the_Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Answers_to_the_Characteristics" EntityType="Self.Answers_to_the_Characteristics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Answers_to_the_Questions" EntityType="Self.Answers_to_the_Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Characteristics" EntityType="Self.Characteristics" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Answering_the_Question_Answers_to_the_Characteristics" Association="Self.FK_Answering_the_Question_Answers_to_the_Characteristics">
+      <End Role="Answers_to_the_Characteristics" EntitySet="Answers_to_the_Characteristics" />
+      <End Role="Answering_the_Question" EntitySet="Answering_the_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answering_the_Question_Answers_to_the_Questions" Association="Self.FK_Answering_the_Question_Answers_to_the_Questions">
+      <End Role="Answers_to_the_Questions" EntitySet="Answers_to_the_Questions" />
+      <End Role="Answering_the_Question" EntitySet="Answering_the_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answering_the_Question_Characteristics" Association="Self.FK_Answering_the_Question_Characteristics">
+      <End Role="Characteristics" EntitySet="Characteristics" />
+      <End Role="Answering_the_Question" EntitySet="Answering_the_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answering_the_Question_Questions" Association="Self.FK_Answering_the_Question_Questions">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Answering_the_Question" EntitySet="Answering_the_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answers_to_the_Characteristics_Characteristics" Association="Self.FK_Answers_to_the_Characteristics_Characteristics">
+      <End Role="Characteristics" EntitySet="Characteristics" />
+      <End Role="Answers_to_the_Characteristics" EntitySet="Answers_to_the_Characteristics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Answers_to_the_Questions_Questions" Association="Self.FK_Answers_to_the_Questions_Questions">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="Answers_to_the_Questions" EntitySet="Answers_to_the_Questions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
